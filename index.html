@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Selection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #151921;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #e8ecf4;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background canvas for particle effects */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Glowing orbs */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .glow-orb.cyan {
+      width: 300px;
+      height: 300px;
+      background: #22d3ee;
+      top: 10%;
+      left: 10%;
+      animation: pulse-cyan 4s ease-in-out infinite;
+    }
+
+    .glow-orb.purple {
+      width: 350px;
+      height: 350px;
+      background: #a855f7;
+      bottom: 10%;
+      right: 10%;
+      animation: pulse-purple 5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-cyan {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.5; }
+    }
+
+    @keyframes pulse-purple {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.15); opacity: 0.45; }
+    }
+
+    /* Content wrapper */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+
+    .description {
+      text-align: center;
+      color: #9ca3af;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+      font-size: 0.875rem;
+    }
+
+    .games-container {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .game-card {
+      width: 100%;
+      max-width: 280px;
+      height: 200px;
+      background: rgba(30, 36, 48, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: #e8ecf4;
+      box-shadow: 0 0 0 1px #2a3140, 0 4px 20px -4px rgba(34, 211, 238, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .game-card.cyan:hover {
+      box-shadow: 0 0 0 2px #22d3ee, 0 8px 40px -4px rgba(34, 211, 238, 0.5), 0 0 60px -10px rgba(34, 211, 238, 0.4);
+    }
+
+    .game-card.purple {
+      box-shadow: 0 0 0 1px #2a3140, 0 4px 20px -4px rgba(168, 85, 247, 0.3);
+    }
+
+    .game-card.purple:hover {
+      box-shadow: 0 0 0 2px #a855f7, 0 8px 40px -4px rgba(168, 85, 247, 0.5), 0 0 60px -10px rgba(168, 85, 247, 0.4);
+    }
+
+    .game-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .game-icon.cyan {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(34, 211, 238, 0.1));
+    }
+
+    .game-icon.purple {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));
+    }
+
+    .game-name {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    /* Tablet and up */
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .description {
+        font-size: 1rem;
+        padding: 0 2rem;
+      }
+
+      .game-card {
+        width: 220px;
+        height: 240px;
+      }
+
+      .game-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+      }
+
+      .game-name {
+        font-size: 1.25rem;
+      }
+
+      .glow-orb.cyan {
+        width: 400px;
+        height: 400px;
+      }
+
+      .glow-orb.purple {
+        width: 450px;
+        height: 450px;
+      }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+      h1 {
+        font-size: 2.75rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .games-container {
+        gap: 2.5rem;
+      }
+
+      .game-card {
+        width: 240px;
+        height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background effects -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="glow-orb cyan"></div>
+  <div class="glow-orb purple"></div>
+
+  <!-- Main content -->
+  <div class="content">
+    <h1>Welcome to Tech-World</h1>
+    <p class="description">Hangman and Treasure Hunt create a unique mix of brainpower and adventure. One challenges players to decode words before time runs out, while the other leads them through mysterious clues toward a hidden reward. I created both games to feel engaging, fun, and full of small secrets that keep players hooked from start to finish.</p>
+    
+    <div class="games-container">
+      <a href="game/demo/index.html" class="game-card cyan" target="_blank">
+        <div class="game-icon cyan">🎮</div>
+        <span class="game-name">Hangman Game</span>
+      </a>
+      
+      <a href="/game/Treasure hunt/index.html" class="game-card purple" target="_blank">
+        <div class="game-icon purple">🎯</div>
+        <span class="game-name">Treasure Hunt</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Particle animation
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 60;
+    const connectionDistance = 120;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.5 ? 'rgba(34, 211, 238, 0.6)' : 'rgba(168, 85, 247, 0.6)';
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectionDistance) {
+            const opacity = (1 - distance / connectionDistance) * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(100, 150, 200, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      drawConnections();
+      requestAnimationFrame(animate);
+    }
+
+    // Initialize
+    resizeCanvas();
+    initParticles();
+    animate();
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    // Card click feedback
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 100);
+      });
+    });
+  </script>
+</body>
+</html>
