@@ -1,5 +1,5 @@
 const collegeData = {
-  name: "9al Kabir Polytechnic",
+  name: "Al Kabir Polytechnic",
   tagline: "Knowledge Quest - Treasure Hunt",
 }
 
