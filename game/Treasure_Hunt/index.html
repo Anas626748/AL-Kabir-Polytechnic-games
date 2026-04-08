@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Kabir Polytechnic - Treasure Hunt Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="background-particles" id="bgParticles"></div>
+    
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <canvas id="adventureCanvas" class="adventure-bg"></canvas>
+        <div class="adventure-container">
+            <div class="floating-characters">
+                <div class="character char-1">🧗</div>
+                <div class="character char-2">🏃</div>
+                <div class="character char-3">🤸</div>
+                <div class="character char-4">🎒</div>
+            </div>
+
+            <div class="start-container adventure-start">
+                <div class="adventure-title-wrapper">
+                    <h1 class="adventure-title">TREASURE HUNT</h1>
+                    <p class="adventure-subtitle">AL KABIR POLYTECHNIC</p>
+                </div>
+                
+                <p class="adventure-tagline">Embark on an Epic Quest for Knowledge</p>
+                
+                <div class="adventure-description">
+                    <p>🗺️ Navigate through 35 challenging questions</p>
+                    <p>💎 Discover hidden treasures of wisdom</p>
+                    <p>🏆 Claim your victory and become a legend</p>
+                </div>
+                
+                <button class="adventure-start-btn" onclick="startGame()">
+                    <span class="btn-wood">START ADVENTURE</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+
+            <div class="falling-leaves">
+                <div class="leaf leaf-1">🍃</div>
+                <div class="leaf leaf-2">🍂</div>
+                <div class="leaf leaf-3">🍃</div>
+                <div class="leaf leaf-4">🍂</div>
+                <div class="leaf leaf-5">🍃</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Screen -->
+    <div id="questionScreen" class="screen">
+        <div class="game-container">
+            <!-- Header with Progress -->
+            <div class="game-header">
+                <div class="header-left">
+                    <div class="college-badge">
+                        <img src="akp.jpg" alt="AKP" class="badge-logo">
+                        <h2 class="game-logo">Treasure Hunt</h2>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="score-display">
+                        <span class="score-label">Score:</span>
+                        <span class="score-value" id="scoreValue">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar with Animation -->
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span id="questionCount">Question 1 of 35</span>
+                    <span class="progress-percent"><span id="progressPercent">0</span>%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-glow"></div>
+                </div>
+            </div>
+
+            <!-- Mobile College Image - Phone Only -->
+            <div class="mobile-college-image">
+                <img src="akp.jpg" alt="Al Kabir Polytechnic Campus" class="campus-image">
+            </div>
+
+            <!-- Question Card with Glassmorphism -->
+            <div class="question-card">
+                <h2 id="questionText" class="question-text">Question goes here?</h2>
+                <div class="options-container" id="optionsContainer">
+                    <!-- Options will be generated here -->
+                </div>
+            </div>
+
+            <!-- Feedback Message -->
+            <div id="feedbackMessage" class="feedback-message"></div>
+        </div>
+        
+    </div>
+
+
+    <!-- Winner Screen -->
+    <div id="winnerScreen" class="screen">
+        <div class="winner-container">
+            <div class="celebration-confetti" id="confetti"></div>
+            <div class="celebration-fireworks" id="fireworks"></div>
+            
+            <div class="winner-content">
+                <div class="trophy-icon">🏆</div>
+                <h1 class="winner-title">CONGRATULATIONS!</h1>
+                <p class="winner-subtitle">You've Completed the Treasure Hunt!</p>
+                
+                <div class="final-score">
+                    <p>Final Score: <span id="finalScore">35</span>/35</p>
+                </div>
+
+                <div class="name-input-section">
+                    <label for="playerName" class="name-label">Enter Your Name:</label>
+                    <input type="text" id="playerName" class="name-input" placeholder="Your Name" maxlength="30">
+                    <button class="submit-name-btn" onclick="submitWinner()">
+                        <span>Claim Your Victory!</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+
+                <div id="winnerDisplay" class="winner-display" style="display:none;">
+                    <div class="winner-badge">
+                        <h2 class="winner-announcement">🏆 First Winner: <span id="winnerName"></span> 🎉</h2>
+                    </div>
+                    <a href="/index.html" class="game-card purple" target="_blank">
+                        <button class="restart-btn">Home</button>
+                    </a>
+                    <!-- onclick="restartGame()" -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sound Effects -->
+    <audio id="correctSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBg==" type="audio/wav">
+    </audio>
+    <audio id="wrongSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBg==" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1580 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-blue: #0a2463;
+  --neon-blue: #2563eb;
+  --neon-purple: #8b5cf6;
+  --neon-cyan: #06b6d4;
+  --accent-gold: #fbbf24;
+  --white: #ffffff;
+  --glass-light: rgba(255, 255, 255, 0.1);
+  --glass-dark: rgba(10, 36, 99, 0.15);
+  --dark-gray: #1e293b;
+  --success-green: #10b981;
+  --error-red: #ef4444;
+  --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.3);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0a2463 0%, #1e3a5f 25%, #2d1b69 50%, #1a2947 75%, #0a2463 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark-gray);
+  overflow-x: hidden;
+  position: relative;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Background Particles Effect */
+.background-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-50px) translateX(30px);
+    opacity: 0.5;
+  }
+}
+
+/* Screen Management */
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+.screen.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow Orbs */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.glow-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.8), transparent);
+  top: -100px;
+  right: -100px;
+  animation-duration: 10s;
+}
+
+.glow-orb-2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.8), transparent);
+  bottom: -80px;
+  left: -80px;
+  animation-duration: 12s;
+  animation-delay: -6s;
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -30px);
+  }
+}
+
+/* Start Screen */
+.start-container {
+  background: var(--glass-light);
+  backdrop-filter: blur(25px);
+  border-radius: 30px;
+  padding: 60px 45px;
+  max-width: 750px;
+  width: 100%;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.start-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.college-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 35px;
+  justify-content: center;
+  animation: slideDown 0.9s ease-out;
+}
+
+.college-logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.6), 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--neon-blue);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: imageFloat 3.5s ease-in-out infinite;
+}
+
+.college-logo:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 0 50px rgba(37, 99, 235, 0.9), 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+@keyframes imageFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.college-info {
+  text-align: left;
+}
+
+.college-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.2;
+  animation: slideInText 0.9s ease-out 0.1s both;
+  text-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+}
+
+@keyframes slideInText {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.college-tagline {
+  font-size: 15px;
+  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  margin: 8px 0 0 0;
+  animation: slideInText 0.9s ease-out 0.2s both;
+}
+
+.treasure-icon {
+  font-size: 100px;
+  margin-bottom: 20px;
+  animation: bounce 2.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.6));
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2) rotateZ(8deg);
+  }
+}
+
+.game-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 52px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  animation: slideInText 0.9s ease-out 0.2s both;
+  filter: drop-shadow(0 0 25px rgba(37, 99, 235, 0.4));
+}
+
+.game-subtitle {
+  font-size: 18px;
+  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 30px;
+  font-weight: 700;
+  animation: fadeIn 0.9s ease-out 0.3s both;
+}
+
+.start-description {
+  margin: 35px 0;
+  text-align: left;
+  background: var(--glass-dark);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 4px solid var(--neon-cyan);
+  animation: slideUp 0.9s ease-out 0.3s both;
+}
+
+.start-description p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+
+.features-list {
+  list-style: none;
+  margin-top: 18px;
+}
+
+.features-list li {
+  color: var(--neon-cyan);
+  margin: 10px 0;
+  font-weight: 700;
+  animation: slideInList 0.5s ease-out both;
+  transition: all 0.3s ease;
+}
+
+.features-list li:hover {
+  transform: translateX(12px);
+  color: var(--neon-blue);
+  text-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
+}
+
+.features-list li:nth-child(1) {
+  animation-delay: 0.45s;
+}
+.features-list li:nth-child(2) {
+  animation-delay: 0.55s;
+}
+.features-list li:nth-child(3) {
+  animation-delay: 0.65s;
+}
+.features-list li:nth-child(4) {
+  animation-delay: 0.75s;
+}
+
+@keyframes slideInList {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  color: var(--white);
+  border: none;
+  padding: 18px 55px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-top: 30px;
+  box-shadow: 0 15px 50px rgba(37, 99, 235, 0.5), 0 0 25px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.9s ease-out 0.55s both;
+  letter-spacing: 1px;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.7s, height 0.7s;
+}
+
+.start-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 25px 70px rgba(37, 99, 235, 0.7), 0 0 40px rgba(139, 92, 246, 0.6);
+}
+
+.start-btn:active {
+  transform: translateY(-2px) scale(0.96);
+}
+
+/* ADVENTURE START SCREEN STYLES */
+.adventure-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: block;
+}
+
+.adventure-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Floating Characters Animation */
+.floating-characters {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.character {
+  position: absolute;
+  font-size: 80px;
+  animation: float-character 6s ease-in-out infinite;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+  animation-direction: alternate;
+}
+
+.char-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+  animation-duration: 5s;
+}
+
+.char-2 {
+  top: 15%;
+  right: 8%;
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+.char-3 {
+  top: 60%;
+  right: 5%;
+  animation-delay: 2s;
+  animation-duration: 7s;
+}
+
+.char-4 {
+  top: 65%;
+  left: 8%;
+  animation-delay: 1.5s;
+  animation-duration: 6.5s;
+}
+
+@keyframes float-character {
+  0% {
+    transform: translateY(0px) rotate(-5deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-60px) rotate(5deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px) rotate(-5deg);
+    opacity: 0.4;
+  }
+}
+
+/* Falling Leaves */
+.falling-leaves {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.leaf {
+  position: absolute;
+  font-size: 40px;
+  animation: fall-leaf 8s linear infinite;
+  opacity: 0.6;
+}
+
+.leaf-1 {
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.leaf-2 {
+  left: 25%;
+  animation-delay: 2s;
+}
+
+.leaf-3 {
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.leaf-4 {
+  left: 70%;
+  animation-delay: 3s;
+}
+
+.leaf-5 {
+  left: 85%;
+  animation-delay: 1.5s;
+}
+
+@keyframes fall-leaf {
+  0% {
+    top: -50px;
+    opacity: 0;
+    transform: rotate(0deg) translateX(0);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 100vh;
+    opacity: 0;
+    transform: rotate(360deg) translateX(50px);
+  }
+}
+
+/* Adventure Start Container */
+.adventure-start {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 69, 19, 0.95) 0%,
+    rgba(184, 134, 11, 0.9) 50%,
+    rgba(139, 69, 19, 0.95) 100%
+  );
+  border: 4px solid #8b4513;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(255, 255, 255, 0.1), 0 0 40px rgba(251, 191, 36, 0.4);
+  border-radius: 25px;
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  backdrop-filter: blur(8px);
+}
+
+.adventure-start::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 15px;
+  background: linear-gradient(90deg, transparent, #8b4513, transparent);
+  border-radius: 50%;
+  filter: blur(5px);
+}
+
+.adventure-start::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  border-radius: 50%;
+}
+
+/* Adventure Title */
+.adventure-title-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 25px;
+  animation: slideDown 0.9s ease-out;
+}
+
+.adventure-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: -3px -3px 0 #8b4513, -2px -2px 0 #8b4513, 3px 3px 0 rgba(0, 0, 0, 0.5), 2px 2px 0 rgba(0, 0, 0, 0.3);
+  margin: 0;
+  line-height: 1.1;
+  animation: titleBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes titleBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotateY(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.adventure-subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fffacd 0%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 10px 0 0 0;
+  letter-spacing: 3px;
+  animation: slideInText 0.9s ease-out 0.2s both;
+  text-shadow: -2px -2px 0 #8b4513;
+}
+
+/* Adventure Tagline */
+.adventure-tagline {
+  font-size: 20px;
+  color: #ffe4b5;
+  font-weight: 700;
+  margin: 20px 0;
+  animation: fadeIn 0.9s ease-out 0.3s both;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Adventure Description */
+.adventure-description {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #ffd700;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 30px 0;
+  animation: slideUp 0.9s ease-out 0.3s both;
+}
+
+.adventure-description p {
+  color: #fffacd;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 12px 0;
+  line-height: 1.6;
+  animation: slideInList 0.5s ease-out both;
+}
+
+.adventure-description p:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.adventure-description p:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.adventure-description p:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* Adventure Start Button */
+.adventure-start-btn {
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 50%, #ff8c00 100%);
+  color: #8b4513;
+  border: 4px solid #8b4513;
+  padding: 22px 65px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 35px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 -3px 8px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.5);
+  animation: fadeIn 0.9s ease-out 0.65s both;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.btn-wood {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+
+.btn-shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+  transition: width 0.8s, height 0.8s;
+  z-index: 1;
+}
+
+.adventure-start-btn:hover {
+  transform: translateY(-8px) scale(1.08);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 -3px 8px rgba(0, 0, 0, 0.3), 0 0 50px rgba(255, 215, 0, 0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.adventure-start-btn:active {
+  transform: translateY(-2px) scale(0.95);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), inset 0 -3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.adventure-start-btn:hover .btn-shine {
+  width: 300px;
+  height: 300px;
+}
+
+/* Game Container */
+.game-container {
+  background: var(--glass-light);
+  backdrop-filter: blur(25px);
+  border-radius: 30px;
+  padding: 45px;
+  max-width: 950px;
+  width: 100%;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.9s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  gap: 25px;
+  animation: slideDown 0.9s ease-out;
+}
+
+.college-badge {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  animation: slideInText 0.9s ease-out 0.1s both;
+}
+
+.badge-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.5), 0 8px 25px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--neon-blue);
+  transition: all 0.3s ease;
+}
+
+.badge-logo:hover {
+  transform: scale(1.12) rotate(-3deg);
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.8), 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+.game-logo {
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInText 0.9s ease-out 0.15s both;
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+  animation: slideInText 0.9s ease-out 0.2s both;
+}
+
+.score-display {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0.1) 100%);
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 800;
+  color: var(--accent-gold);
+  display: flex;
+  gap: 10px;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: pulse 2.5s ease-in-out infinite;
+  border: 2px solid rgba(251, 191, 36, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.score-label {
+  opacity: 0.9;
+}
+
+.score-value {
+  color: #fcd34d;
+  font-size: 22px;
+}
+
+/* Progress Bar */
+.progress-section {
+  margin-bottom: 35px;
+  animation: slideInText 0.9s ease-out 0.1s both;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+
+.progress-percent {
+  color: var(--neon-cyan);
+  font-weight: 900;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 16px;
+  background: var(--glass-dark);
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progress-glow {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  height: 26px;
+  width: 100%;
+  border-radius: 50px;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+  pointer-events: none;
+}
+
+/* Mobile College Image */
+.mobile-college-image {
+  display: none;
+  justify-content: center;
+  margin-bottom: 30px;
+  animation: slideUp 0.9s ease-out;
+}
+
+.campus-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.5), 0 15px 40px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--neon-blue);
+  max-height: 220px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.campus-image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.7), 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+/* Question Card */
+.question-card {
+  background: var(--glass-dark);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 45px;
+  margin-bottom: 35px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  animation: slideIn 0.7s ease-out;
+  box-shadow: inset 0 0 30px rgba(37, 99, 235, 0.1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  animation: slideInText 0.7s ease-out 0.15s both;
+}
+
+.options-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.option-btn {
+  background: var(--glass-dark);
+  border: 2px solid rgba(37, 99, 235, 0.4);
+  padding: 20px 28px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: left;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInOption 0.5s ease-out both;
+  backdrop-filter: blur(10px);
+}
+
+.option-btn:nth-child(1) {
+  animation-delay: 0.25s;
+}
+.option-btn:nth-child(2) {
+  animation-delay: 0.35s;
+}
+.option-btn:nth-child(3) {
+  animation-delay: 0.45s;
+}
+.option-btn:nth-child(4) {
+  animation-delay: 0.55s;
+}
+
+@keyframes fadeInOption {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.option-btn:hover {
+  border-color: var(--neon-blue);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%);
+  transform: translateX(15px);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.option-btn:active {
+  transform: translateX(10px) scale(0.95);
+}
+
+.option-btn.correct {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.2) 100%);
+  border-color: var(--success-green);
+  color: #4ade80;
+  animation: correctAnswer 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 35px rgba(16, 185, 129, 0.7), inset 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.option-btn.wrong {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 100%);
+  border-color: var(--error-red);
+  color: #fca5a5;
+  animation: wrongAnswer 0.7s ease;
+  box-shadow: 0 0 35px rgba(239, 68, 68, 0.7), inset 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+@keyframes correctAnswer {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes wrongAnswer {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-20px) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(20px) rotate(3deg);
+  }
+}
+
+/* Feedback Message */
+.feedback-message {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  min-height: 35px;
+  padding: 18px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.feedback-message.show-feedback {
+  animation: slideInFeedback 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideInFeedback {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.feedback-correct {
+  color: #4ade80;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.2) 100%);
+  border: 2px solid rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+}
+
+.feedback-wrong {
+  color: #fca5a5;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 100%);
+  border: 2px solid rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+}
+
+/* Winner Screen */
+.winner-container {
+  background: var(--glass-light);
+  backdrop-filter: blur(25px);
+  border-radius: 30px;
+  padding: 70px 50px;
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.winner-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.celebration-confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.celebration-fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.winner-content {
+  position: relative;
+  z-index: 5;
+}
+
+.trophy-icon {
+  font-size: 130px;
+  margin-bottom: 25px;
+  animation: trophyBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+  filter: drop-shadow(0 0 30px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+}
+
+@keyframes trophyBounce {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.3) rotate(20deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.winner-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  animation: zoomIn 0.8s ease-out;
+  text-shadow: 0 0 40px rgba(37, 99, 235, 0.5);
+  letter-spacing: 2px;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.winner-subtitle {
+  font-size: 22px;
+  background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 35px;
+  font-weight: 800;
+  animation: fadeIn 0.9s ease-out 0.2s both;
+}
+
+.final-score {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0.1) 100%);
+  padding: 30px;
+  border-radius: 22px;
+  margin: 35px 0;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent-gold);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.9s ease-out 0.3s both;
+  border: 2px solid rgba(251, 191, 36, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.name-input-section {
+  background: var(--glass-dark);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 22px;
+  margin: 35px 0;
+  animation: fadeIn 0.9s ease-out 0.4s both;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.name-label {
+  display: block;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 16px 24px;
+  border: 2px solid rgba(37, 99, 235, 0.4);
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+  background: var(--glass-dark);
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.name-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: var(--neon-blue);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.submit-name-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #06b6d4 100%);
+  color: var(--white);
+  border: none;
+  padding: 16px 45px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  width: 100%;
+  box-shadow: 0 15px 50px rgba(37, 99, 235, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+
+.btn-shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+}
+
+.submit-name-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.7), 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.winner-badge {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%);
+  padding: 35px;
+  border-radius: 22px;
+  border: 2px solid rgba(37, 99, 235, 0.5);
+  animation: fadeIn 0.9s ease-out both;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+}
+
+.winner-announcement {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  animation: slideInDown 0.9s ease-out;
+  text-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+  letter-spacing: 1px;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+  color: var(--white);
+  border: none;
+  padding: 16px 55px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 15px 50px rgba(37, 99, 235, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  margin-top: 25px;
+  animation: fadeIn 0.9s ease-out 0.15s both;
+  letter-spacing: 1px;
+}
+
+.restart-btn:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 25px 70px rgba(37, 99, 235, 0.7), 0 0 40px rgba(139, 92, 246, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 30px;
+  }
+
+  .game-title {
+    font-size: 42px;
+  }
+
+  .college-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .college-info {
+    text-align: center;
+  }
+
+  .college-name {
+    font-size: 24px;
+  }
+
+  .question-text {
+    font-size: 24px;
+  }
+
+  .option-btn {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .start-container {
+    padding: 45px 30px;
+  }
+
+  .winner-title {
+    font-size: 48px;
+  }
+
+  .trophy-icon {
+    font-size: 110px;
+  }
+
+  .game-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .progress-info {
+    font-size: 12px;
+  }
+
+  .question-card {
+    padding: 30px;
+  }
+
+  .mobile-college-image {
+    display: flex;
+  }
+
+  .glow-orb {
+    filter: blur(60px);
+  }
+
+  /* Mobile Responsive for Adventure Start Screen */
+  .adventure-title {
+    font-size: 48px;
+    letter-spacing: 3px;
+  }
+
+  .adventure-subtitle {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .adventure-tagline {
+    font-size: 16px;
+  }
+
+  .adventure-start-btn {
+    padding: 18px 50px;
+    font-size: 16px;
+  }
+
+  .character {
+    font-size: 60px;
+  }
+
+  .leaf {
+    font-size: 30px;
+  }
+
+  .adventure-start {
+    padding: 50px 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    padding: 22px;
+  }
+
+  .game-title {
+    font-size: 32px;
+  }
+
+  .college-name {
+    font-size: 20px;
+  }
+
+  .college-tagline {
+    font-size: 13px;
+  }
+
+  .college-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .question-text {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .option-btn {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .start-btn {
+    padding: 14px 32px;
+    font-size: 15px;
+  }
+
+  .score-display {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+
+  .progress-info {
+    font-size: 11px;
+  }
+
+  .start-container {
+    padding: 35px 22px;
+  }
+
+  .treasure-icon {
+    font-size: 80px;
+  }
+
+  .game-subtitle {
+    font-size: 15px;
+  }
+
+  .winner-title {
+    font-size: 40px;
+  }
+
+  .winner-subtitle {
+    font-size: 18px;
+  }
+
+  .trophy-icon {
+    font-size: 90px;
+  }
+
+  .final-score {
+    font-size: 24px;
+  }
+
+  .winner-announcement {
+    font-size: 26px;
+  }
+
+  .name-input-section {
+    padding: 25px;
+  }
+
+  .mobile-college-image {
+    display: flex;
+  }
+
+  .campus-image {
+    max-height: 200px;
+  }
+
+  .winner-container {
+    padding: 50px 30px;
+  }
+
+  .glow-orb-1 {
+    width: 200px;
+    height: 200px;
+    top: -100px;
+    right: -100px;
+  }
+
+  .glow-orb-2 {
+    width: 150px;
+    height: 150px;
+    bottom: -80px;
+    left: -80px;
+  }
+}
